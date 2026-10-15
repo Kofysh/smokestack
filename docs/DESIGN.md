@@ -432,7 +432,11 @@ than SmokePing's 20 packets per second.
 **Remote probes.** `POST /api/v1/ingest` accepts measurement batches from a
 probe on another machine, with `Authorization: Bearer <probe token>`. A
 probe without a token is always rejected, so nobody can inject fake
-measurements. Issuing tokens is not available yet (see
+measurements. Both the remote HTTP endpoint and the local Unix-socket
+transport use a 64 MiB request limit and a 20,000-measurement batch limit.
+Remote probes must split a backlog into batches within both ceilings; a
+batch exceeding 20,000 measurements receives HTTP 413.
+Issuing tokens is not available yet (see
 [known limits](#15-known-limits)).
 
 ## 9. Back-office and security
