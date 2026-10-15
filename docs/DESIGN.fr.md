@@ -265,6 +265,11 @@ POST /api/v1/ingest
 ]}
 ```
 
+Les deux transports d'ingestion (HTTP distant et socket Unix local) utilisent
+une limite de 64 Mio par requête et de 20 000 mesures par lot. Une sonde
+distante devra découper son retard en lots respectant ces deux plafonds ;
+un lot dépassant 20 000 mesures reçoit une réponse HTTP 413.
+
 Exemples :
 
 ```bash
